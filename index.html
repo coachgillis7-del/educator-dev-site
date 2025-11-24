@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Faulk Educator → Developer Journey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b0b12;
+      --bg-alt: #141422;
+      --card: #1c1c30;
+      --primary: #5a35b5; /* Panther purple-ish */
+      --accent: #f5c443;  /* Gold */
+      --text: #f9f9ff;
+      --muted: #b1b3cf;
+      --border: #2b2b46;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
+      --max-width: 1120px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1a1630 0, #05050a 55%, #020107 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5, 5, 14, 0.92), rgba(5, 5, 14, 0.65), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 40% 60% 55% 45%;
+      background: radial-gradient(circle at 20% 0%, var(--accent), var(--primary));
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #120c1f;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-weight: 650;
+      letter-spacing: 0.03em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+    }
+
+    .logo-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-pill);
+      transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      padding: 0.35rem 0.95rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      border: 1px solid rgba(245, 196, 67, 0.8);
+      background: radial-gradient(circle at top left, rgba(245, 196, 67, 0.18), transparent);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+    }
+
+    .nav-cta span {
+      font-size: 1rem;
+    }
+
+    .nav-cta:hover {
+      background: radial-gradient(circle at top left, rgba(245, 196, 67, 0.28), rgba(90, 53, 181, 0.7));
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+      transform: translateY(-1px);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .section {
+      padding: 3.5rem 1.2rem;
+    }
+
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.6fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 880px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: radial-gradient(circle at top left, rgba(245, 196, 67, 0.16), rgba(28, 28, 48, 0.96));
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #fff, var(--accent));
+      box-shadow: 0 0 12px rgba(245, 196, 67, 0.9);
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 5vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-title span.gradient {
+      background: linear-gradient(120deg, #f5c443, #ffd882, #d2b3ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.99rem;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-subtitle strong {
+      color: #fdf4c5;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: var(--radius-pill);
+      padding: 0.65rem 1.3rem;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: background 0.16s ease, transform 0.12s ease, box-shadow 0.18s ease, border-color 0.16s ease;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 0% 0%, #f5c443, #f19e3b, #5a35b5);
+      color: #120c1f;
+      box-shadow: var(--shadow-soft);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-ghost {
+      border-color: rgba(255, 255, 255, 0.18);
+      color: var(--muted);
+      background: rgba(24, 24, 40, 0.9);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(48, 48, 76, 0.95);
+      border-color: rgba(245, 196, 67, 0.8);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .hero-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .hero-note strong {
+      color: #fdf4c5;
+    }
+
+    .hero-note span {
+      opacity: 0.8;
+    }
+
+    /* Hero Card */
+    .hero-card {
+      border-radius: 24px;
+      padding: 1.4rem;
+      background: radial-gradient(circle at top, rgba(245, 196, 67, 0.08), transparent 45%),
+                  linear-gradient(145deg, #171625, #100f1a);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-badge {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(16, 15, 32, 0.96);
+    }
+
+    .hero-badge span.icon {
+      font-size: 1rem;
+    }
+
+    .hero-progress {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.25rem;
+    }
+
+    .hero-progress-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-progress-bar {
+      width: 120px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .hero-progress-fill {
+      width: 58%;
+      height: 100%;
+      background: linear-gradient(90deg, #f5c443, #f28b3c, #b46cff);
+      box-shadow: 0 0 12px rgba(245, 196, 67, 0.5);
+    }
+
+    .hero-card-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-card-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero-grid-mini {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    .mini-card {
+      border-radius: var(--radius-md);
+      padding: 0.7rem;
+      background: rgba(12, 11, 26, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.75rem;
+    }
+
+    .mini-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .mini-main {
+      font-size: 0.84rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .mini-tag {
+      font-size: 0.7rem;
+      color: var(--accent);
+      opacity: 0.9;
+    }
+
+    .hero-timeline {
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      padding: 0.7rem 0.75rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .hero-timeline-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-timeline-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .hero-timeline-label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.68rem;
+      color: rgba(177, 179, 207, 0.9);
+    }
+
+    .hero-timeline-value {
+      color: #fdf4c5;
+    }
+
+    /* Sections */
+    .section-title {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-heading {
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-description {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 1.6rem;
+    }
+
+    /* Why Path */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 960px) {
+      .why-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .why-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .why-card {
+      border-radius: var(--radius-lg);
+      padding: 1.1rem;
+      background: linear-gradient(145deg, #181727, #12111f);
+      border: 1px solid var(--border);
+    }
+
+    .why-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, rgba(245, 196, 67, 0.26), rgba(90, 53, 181, 0.7));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .why-title {
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .why-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Modules */
+    .modules-layout {
+      display: grid;
+      gap: 1.2rem;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.2fr);
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .modules-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .timeline {
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      background: linear-gradient(145deg, #181727, #100f1c);
+      border: 1px solid var(--border);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.8rem;
+      padding: 0.7rem 0;
+    }
+
+    .timeline-item:not(:last-child) {
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+    }
+
+    .timeline-step {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 196, 67, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      color: var(--accent);
+      background: radial-gradient(circle at top left, rgba(245, 196, 67, 0.16), rgba(24, 23, 45, 0.98));
+    }
+
+    .timeline-content-title {
+      font-size: 0.95rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-content-tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .timeline-content-list {
+      font-size: 0.8rem;
+      color: var(--muted);
+      list-style: disc;
+      padding-left: 1.1rem;
+      line-height: 1.55;
+    }
+
+    .modules-side {
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      background: radial-gradient(circle at top, rgba(90, 53, 181, 0.45), rgba(12, 12, 24, 0.98));
+      border: 1px solid rgba(245, 196, 67, 0.4);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.85rem;
+    }
+
+    .modules-side h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .modules-side p {
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .modules-pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .modules-pill {
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.75rem;
+      background: rgba(17, 16, 36, 0.95);
+    }
+
+    /* How It Works */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 960px) {
+      .how-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .how-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .how-card {
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      background: linear-gradient(145deg, #181727, #111020);
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .how-step-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(245, 196, 67, 0.9);
+      margin-bottom: 0.3rem;
+    }
+
+    .how-title {
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      color: var(--text);
+    }
+
+    .how-card ul {
+      list-style: disc;
+      padding-left: 1rem;
+      margin-top: 0.4rem;
+      line-height: 1.55;
+    }
+
+    /* FAQ / CTA */
+    .faq-grid {
+      border-radius: var(--radius-lg);
+      padding: 1.1rem;
+      background: linear-gradient(135deg, #181727, #100f1c);
+      border: 1px solid var(--border);
+      display: grid;
+      gap: 1.1rem;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .faq-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .faq-list {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .faq-item {
+      margin-bottom: 0.6rem;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.15rem;
+      font-size: 0.9rem;
+    }
+
+    .faq-a {
+      line-height: 1.6;
+    }
+
+    .cta-panel {
+      border-radius: var(--radius-md);
+      padding: 0.95rem;
+      background: radial-gradient(circle at top, rgba(245, 196, 67, 0.2), rgba(90, 53, 181, 0.9));
+      border: 1px solid rgba(245, 196, 67, 0.6);
+      color: #120c1f;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.7);
+    }
+
+    .cta-panel h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .cta-panel p {
+      font-size: 0.85rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .cta-panel small {
+      font-size: 0.75rem;
+      opacity: 0.85;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 1.6rem 1.2rem 2.2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .footer-inner span.highlight {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- NAV -->
+    <header class="nav">
+      <div class="nav-inner">
+        <div class="nav-left">
+          <div class="logo-mark">F</div>
+          <div class="logo-text">
+            <div class="logo-title">Faulk Dev Lab</div>
+            <div class="logo-sub">Educator → Developer Journey</div>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#why">Why This Path</a>
+          <a href="#modules">Course Journey</a>
+          <a href="#how">How It Works</a>
+        </nav>
+        <button class="nav-cta" onclick="document.getElementById('modules').scrollIntoView({behavior:'smooth'})">
+          Start Roadmap <span>↗</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="section hero">
+        <div class="section-inner hero-grid">
+          <div>
+            <div class="pill">
+              <div class="pill-dot"></div>
+              <span>From Principal to Product Builder</span>
+            </div>
+            <h1 class="hero-title">
+              Turn a lifetime in education<br />
+              into a <span class="gradient">developer-powered retirement</span>.
+            </h1>
+            <p class="hero-subtitle">
+              This is a personal, project-based journey for <strong>one educator</strong>:
+              taking real school problems, turning them into apps, and building a
+              retirement where you create tools teachers actually love.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn-primary" onclick="document.getElementById('modules').scrollIntoView({behavior:'smooth'})">
+                View the Course Journey
+              </button>
+              <button class="btn-ghost" onclick="document.getElementById('why').scrollIntoView({behavior:'smooth'})">
+                Why this works for educators
+              </button>
+            </div>
+
+            <p class="hero-note">
+              <strong>Already in progress:</strong> RGS Hub, Behavior Engine, MTSS tools,
+              dismissal systems, PAX + PBIS supports. <span>Each project = another “module” completed.</span>
+            </p>
+          </div>
+
+          <!-- Hero side card -->
+          <aside class="hero-card">
+            <div class="hero-badge-row">
+              <div class="hero-badge">
+                <span class="icon">🎓</span>
+                Educator → Developer Track
+              </div>
+              <div class="hero-progress">
+                <div class="hero-progress-label">Journey Progress (Est.)</div>
+                <div class="hero-progress-bar">
+                  <div class="hero-progress-fill"></div>
+                </div>
+              </div>
+            </div>
+
+            <h2 class="hero-card-title">Built around your real projects.</h2>
+            <p class="hero-card-sub">
+              No fake tutorials. Every “lesson” happens while building real tools:
+              RGS, TTESS helpers, MTSS engines, behavior systems, and Panther power packs.
+            </p>
+
+            <div class="hero-grid-mini">
+              <div class="mini-card">
+                <div class="mini-label">Identity</div>
+                <div class="mini-main">Educator → Architect</div>
+                <div class="mini-tag">You design systems. AI writes code with you.</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Timeline</div>
+                <div class="mini-main">6–18 months</div>
+                <div class="mini-tag">Flexible pace, retirement-aligned.</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Focus</div>
+                <div class="mini-main">Education Apps</div>
+                <div class="mini-tag">Built for teachers & principals.</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Outcome</div>
+                <div class="mini-main">Revenue-Ready Tools</div>
+                <div class="mini-tag">From side project to product.</div>
+              </div>
+            </div>
+
+            <div class="hero-timeline">
+              <div class="hero-timeline-row">
+                <div class="hero-timeline-label">Phase 1</div>
+                <div class="hero-timeline-value">Foundations through VS Code + Apps Script</div>
+              </div>
+              <div class="hero-timeline-row">
+                <div class="hero-timeline-label">Phase 3</div>
+                <div class="hero-timeline-value">Build full RGS or Behavior Engine as portfolio app</div>
+              </div>
+              <div class="hero-timeline-row">
+                <div class="hero-timeline-label">Phase 5</div>
+                <div class="hero-timeline-value">Launch monetizable tools for schools & teachers</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- WHY THIS PATH -->
+      <section class="section" id="why">
+        <div class="section-inner">
+          <div class="section-title">Why this path works for you</div>
+          <h2 class="section-heading">You already think like a systems engineer.</h2>
+          <p class="section-description">
+            Instead of starting with “Hello, World”, this journey starts with what you already do:
+            diagnosing problems, designing processes, and taking care of teachers. The code simply
+            becomes another way to serve those systems.
+          </p>
+
+          <div class="why-grid">
+            <div class="why-card">
+              <div class="why-icon">📚</div>
+              <div class="why-title">You have decades of domain expertise</div>
+              <p class="why-text">
+                Most developers spend years guessing what to build. You already know exactly
+                what principals, teachers, and students need on a daily basis.
+              </p>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">🧩</div>
+              <div class="why-title">You’re already “coding” via design</div>
+              <p class="why-text">
+                Every time you map an MTSS flow, a TTESS process, or a dismissal routine,
+                you’re designing logic. This course simply translates that into app structure.
+              </p>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">🤝</div>
+              <div class="why-title">You don’t build alone</div>
+              <p class="why-text">
+                AI is your full-time co-developer. You focus on ideas, workflows, and
+                decisions; AI handles the syntax and boilerplate.
+              </p>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">🛠️</div>
+              <div class="why-title">Everything is project-based</div>
+              <p class="why-text">
+                Each module is anchored in a real project you care about:
+                RGS hub, behavior engine, PAX tools, or Panther pickup systems.
+              </p>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">💸</div>
+              <div class="why-title">Designed to support retirement</div>
+              <p class="why-text">
+                The end goal isn’t just “learning to code”. It’s creating
+                actual, sellable tools that can supplement your retirement income.
+              </p>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">🚀</div>
+              <div class="why-title">Built at your pace</div>
+              <p class="why-text">
+                Busy school year? Go slower. Summer or breaks?
+                Accelerate. The course flexes with your calendar and energy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COURSE MODULES -->
+      <section class="section" id="modules">
+        <div class="section-inner">
+          <div class="section-title">The journey</div>
+          <h2 class="section-heading">Educator → Developer Course Map</h2>
+          <p class="section-description">
+            Seven stages, each anchored in real work you’re already doing. You don’t
+            “pause life” to take a course; your work <em>is</em> the course.
+          </p>
+
+          <div class="modules-layout">
+            <div class="timeline">
+              <!-- Module 1 -->
+              <div class="timeline-item">
+                <div class="timeline-step">1</div>
+                <div>
+                  <div class="timeline-content-title">Foundations through real projects</div>
+                  <div class="timeline-content-tagline">VS Code, Expo, Apps Script, and basic code-reading.</div>
+                  <ul class="timeline-content-list">
+                    <li>Understand what each file does in your apps.</li>
+                    <li>Fix small bugs with guidance (and celebrate it).</li>
+                    <li>Learn variables, functions, and components by touching real code.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Module 2 -->
+              <div class="timeline-item">
+                <div class="timeline-step">2</div>
+                <div>
+                  <div class="timeline-content-title">Developer thinking for educators</div>
+                  <div class="timeline-content-tagline">Turn TTESS, MTSS, PAX, and RGS into app logic.</div>
+                  <ul class="timeline-content-list">
+                    <li>Translate school problems into features and flows.</li>
+                    <li>Use if/then logic, loops, and state through real examples.</li>
+                    <li>Design simple “algorithms” for classroom and campus needs.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Module 3 -->
+              <div class="timeline-item">
+                <div class="timeline-step">3</div>
+                <div>
+                  <div class="timeline-content-title">First independent mini-app</div>
+                  <div class="timeline-content-tagline">Small, meaningful, and fully yours.</div>
+                  <ul class="timeline-content-list">
+                    <li>Build a Teacher Timer, MTSS Tier suggester, or PAX kernel helper.</li>
+                    <li>Handle input, state, and simple data storage.</li>
+                    <li>Run it on your own phone or laptop.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Module 4 -->
+              <div class="timeline-item">
+                <div class="timeline-step">4</div>
+                <div>
+                  <div class="timeline-content-title">App architecture & data</div>
+                  <div class="timeline-content-tagline">Front end, back end, and database working together.</div>
+                  <ul class="timeline-content-list">
+                    <li>Use Firestore or Supabase for storing plans and behavior data.</li>
+                    <li>Design safe, clean data structures for teachers and students.</li>
+                    <li>Connect the UI to real, persistent data.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Module 5 -->
+              <div class="timeline-item">
+                <div class="timeline-step">5</div>
+                <div>
+                  <div class="timeline-content-title">Production-ready flagship app</div>
+                  <div class="timeline-content-tagline">RGS, Behavior Engine, or Dismissal app as your portfolio project.</div>
+                  <ul class="timeline-content-list">
+                    <li>Build a full app with logins, data, and school-ready workflows.</li>
+                    <li>Test with a small group of real users (even just your campus).</li>
+                    <li>Iterate based on feedback—just like improving a campus system.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Module 6 -->
+              <div class="timeline-item">
+                <div class="timeline-step">6</div>
+                <div>
+                  <div class="timeline-content-title">Monetization & launch</div>
+                  <div class="timeline-content-tagline">Turn your app into a product, not just a project.</div>
+                  <ul class="timeline-content-list">
+                    <li>Set up pricing, Stripe, or simple licensing terms.</li>
+                    <li>Build a basic landing page and walkthrough for teachers.</li>
+                    <li>Offer pilots to campuses and refine your offer.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Module 7 -->
+              <div class="timeline-item">
+                <div class="timeline-step">7</div>
+                <div>
+                  <div class="timeline-content-title">Developer identity & capstone</div>
+                  <div class="timeline-content-tagline">Own your new role as a creator.</div>
+                  <ul class="timeline-content-list">
+                    <li>Build one final app that’s entirely your vision.</li>
+                    <li>Create a simple portfolio site and product catalog.</li>
+                    <li>Step into retirement with tools—and a new craft—you built yourself.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <aside class="modules-side">
+              <h3>Your current status</h3>
+              <p>
+                You’ve already begun: VS Code, Expo, Google Apps Script, MTSS engines,
+                RGS hub, TTESS dashboards, behavior tools, and Panther dismissal flows.
+              </p>
+              <p>
+                This “course” simply names what you’re doing and organizes it into a
+                roadmap you can see.
+              </p>
+              <div class="modules-pill-list">
+                <div class="modules-pill">VS Code ready</div>
+                <div class="modules-pill">Apps Script active</div>
+                <div class="modules-pill">Expo app running</div>
+                <div class="modules-pill">Multiple live projects</div>
+                <div class="modules-pill">Educator systems mindset</div>
+                <div class="modules-pill">AI co-developer on call</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <!-- PROJECTS / TRACKER -->
+      <section class="section" id="projects">
+        <div class="section-inner">
+          <div class="section-title">Active builds</div>
+          <h2 class="section-heading">Your Educator → Developer lab projects</h2>
+          <p class="section-description">
+            Each of these started as a problem on campus. Now they’re also “units” in your
+            Educator → Developer course. As you improve them, your skills level up too.
+          </p>
+
+          <div class="why-grid">
+            <div class="why-card">
+              <div class="why-icon">📊</div>
+              <div class="why-title">RGS Hub (Reflective Growth System)</div>
+              <p class="why-text">
+                Teacher-facing lesson internalization, reflection, and growth tracking.
+                <br /><br />
+                <strong>Status:</strong> ✅ Core flow working · 🔄 UI and print views in progress
+              </p>
+            </div>
+
+            <div class="why-card">
+              <div class="why-icon">🧠</div>
+              <div class="why-title">Behavior Engine</div>
+              <p class="why-text">
+                Turn teacher descriptions of student behavior into concrete, tailored strategies.
+                <br /><br />
+                <strong>Status:</strong> 🧩 Design + logic drafting · ⏭ Next: interface + data model
+              </p>
+            </div>
+
+            <div class="why-card">
+              <div class="why-icon">📚</div>
+              <div class="why-title">MTSS Auto-Planner</div>
+              <p class="why-text">
+                Use academic and behavior data to suggest Tier 1–3 supports and track progress.
+                <br /><br />
+                <strong>Status:</strong> ✅ Form + sheet flow · 🔄 Automation + dashboards evolving
+              </p>
+            </div>
+
+            <div class="why-card">
+              <div class="why-icon">🚗</div>
+              <div class="why-title">Panther Pickup Power Pack</div>
+              <p class="why-text">
+                Streamline car rider dismissal so little Panthers get home faster and safer.
+                <br /><br />
+                <strong>Status:</strong> 🧩 Workflow + naming set · ⏭ Next: prototype UI + data logging
+              </p>
+            </div>
+
+            <div class="why-card">
+              <div class="why-icon">🏅</div>
+              <div class="why-title">Tootles & Heroes Systems</div>
+              <p class="why-text">
+                Recognition, consequences, and restorative tracking that align with PAX, PBIS,
+                and your HEROES framework.
+                <br /><br />
+                <strong>Status:</strong> ✅ Forms + sheets · 🐛 Script tuning + automation fixes
+              </p>
+            </div>
+
+            <div class="why-card">
+              <div class="why-icon">🧪</div>
+              <div class="why-title">Experiment Zone</div>
+              <p class="why-text">
+                A sandbox for trying new ideas: tiny teacher tools, timers, checklists, and
+                anything else that might make a teacher’s day easier.
+                <br /><br />
+                <strong>Status:</strong> ♻ Always open
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="section" id="how">
+        <div class="section-inner">
+          <div class="section-title">How the course works</div>
+          <h2 class="section-heading">No separate class. Your work <em>is</em> the course.</h2>
+          <p class="section-description">
+            Instead of logging into a learning portal, you open VS Code, Google Sheets, or your
+            apps—and build. Each step you take in a real project completes another “lesson”.
+          </p>
+
+          <div class="how-grid">
+            <div class="how-card">
+              <div class="how-step-label">Step 1</div>
+              <div class="how-title">Start with the projects you already have</div>
+              <p>
+                RGS, TTESS tools, MTSS auto-planners, PAX kernels, and dismissal systems become
+                our curriculum.
+              </p>
+              <ul>
+                <li>List active projects.</li>
+                <li>Map each one to modules.</li>
+                <li>Identify 1–2 “learning targets” per project.</li>
+              </ul>
+            </div>
+            <div class="how-card">
+              <div class="how-step-label">Step 2</div>
+              <div class="how-title">Turn problems into small dev tasks</div>
+              <p>
+                “Admin tab is blank”, “teacher sheet didn’t create”, or “barcode scanner broke”
+                become intentional learning reps.
+              </p>
+              <ul>
+                <li>Debug with AI side-by-side.</li>
+                <li>Document what you fixed.</li>
+                <li>Add it to your “dev log” as progress.</li>
+              </ul>
+            </div>
+            <div class="how-card">
+              <div class="how-step-label">Step 3</div>
+              <div class="how-title">Capture patterns as reusable skills</div>
+              <p>
+                Every time you connect a form, write a trigger, or deploy a web app, you’re adding
+                a skill you can reuse.
+              </p>
+              <ul>
+                <li>Save code snippets you understand.</li>
+                <li>Keep a running “I can do this now” list.</li>
+                <li>Review it whenever you feel stuck.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ & CTA -->
+      <section class="section">
+        <div class="section-inner">
+          <div class="faq-grid">
+            <div class="faq-list">
+              <div class="faq-item">
+                <div class="faq-q">Do I have to “go back to school” to do this?</div>
+                <div class="faq-a">
+                  No. This journey is woven directly into what you’re already building.
+                  There are no separate lectures, just guided building and reflection.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q">What if I don’t remember the technical terms?</div>
+                <div class="faq-a">
+                  That’s fine. The only thing that matters is: can you change the thing,
+                  fix the thing, or build the thing? Terminology can come later.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q">What does “success” look like at the end?</div>
+                <div class="faq-a">
+                  At least one production-ready education app, several supporting tools,
+                  a clear system for improving them, and the confidence to call yourself
+                  a creator—not just a consumer—of school software.
+                </div>
+              </div>
+            </div>
+
+            <aside class="cta-panel">
+              <h3>Your next step</h3>
+              <p>
+                Choose one active project (RGS hub, Behavior Engine, MTSS, or dismissal)
+                and treat it as “Module 1 & 2” of this course. From here, every improvement
+                you make in that project is progress in your Educator → Developer journey.
+              </p>
+              <button class="btn-primary" onclick="document.getElementById('modules').scrollIntoView({behavior:'smooth'})">
+                Anchor a project to Module 1
+              </button>
+              <br /><br />
+              <small>
+                You can extend this site later with: project checklists, dev logs, links to your
+                apps, and even a public portfolio once you’re ready to share your tools.
+              </small>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div>© <span class="highlight">Faulk Dev Lab</span> · Educator → Developer Journey</div>
+        <div>Built from real campus problems, one app at a time.</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
