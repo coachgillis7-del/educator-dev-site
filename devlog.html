@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dev Log • Faulk Dev Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1a1630 0, #05050a 55%, #020107 100%);
+      color: #f9f9ff;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #f5c443; text-decoration: none; }
+    .page { max-width: 960px; margin: 0 auto; padding: 1.6rem 1.6rem 2.6rem; }
+
+    /* Simple top nav */
+    .nav {
+      text-align: center;
+      margin-bottom: 1.8rem;
+      font-size: 0.95rem;
+    }
+    .nav a {
+      margin: 0 0.75rem;
+      color: #ffd882;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 0.4rem;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #b1b3cf;
+      margin-bottom: 2rem;
+    }
+
+    /* Timeline */
+    .timeline {
+      border-left: 2px solid rgba(255,255,255,0.16);
+      margin-left: 0.6rem;
+      padding-left: 1.4rem;
+    }
+    .entry {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .entry::before {
+      content: "";
+      position: absolute;
+      left: -1.6rem;
+      top: 0.25rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top left, #f5c443, #b46cff);
+      box-shadow: 0 0 10px rgba(245, 196, 67, 0.8);
+    }
+    .entry-date {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #ffd882;
+      margin-bottom: 0.15rem;
+    }
+    .entry-title {
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+    .entry-body {
+      font-size: 0.9rem;
+      color: #b1b3cf;
+      line-height: 1.6;
+    }
+    .tag-row {
+      margin-top: 0.3rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.14rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #f9f9ff;
+      background: rgba(17,16,36,0.96);
+    }
+
+    .hint {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #888bb0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="nav">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="devlog.html">Dev Log</a>
+      <a href="index.html#modules">Course Journey</a>
+      <a href="index.html#how">How It Works</a>
+    </div>
+
+    <h1>Developer Log</h1>
+    <p class="subtitle">
+      A running record of what you’ve built, fixed, and learned on the way from principal to product builder.
+    </p>
+
+    <div class="timeline">
+      <div class="entry">
+        <div class="entry-date">NOVEMBER 2025</div>
+        <div class="entry-title">Deployed my first website</div>
+        <div class="entry-body">
+          Published the Educator → Developer course site to GitHub Pages:
+          <br />
+          <a href="https://coachgillis7-del.github.io/educator-dev-site/" target="_blank">
+            coachgillis7-del.github.io/educator-dev-site
+          </a>.
+          First time seeing my own code live on the internet.
+        </div>
+        <div class="tag-row">
+          <span class="tag">GitHub Pages</span>
+          <span class="tag">HTML</span>
+          <span class="tag">Milestone</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">FALL 2025</div>
+        <div class="entry-title">Built and ran an Expo app locally</div>
+        <div class="entry-body">
+          Worked inside VS Code to run an Expo app, connect it to a backend, and debug
+          module issues (like missing barcode scanner packages). Learned how the dev server,
+          QR codes, and phone previews all fit together.
+        </div>
+        <div class="tag-row">
+          <span class="tag">Expo</span>
+          <span class="tag">React Native</span>
+          <span class="tag">VS Code</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">2025</div>
+        <div class="entry-title">Apps Script triggers & MTSS automations</div>
+        <div class="entry-body">
+          Created and debugged Google Apps Script functions for MTSS, TTESS, and behavior systems.
+          Fixed trigger errors, connected forms to sheets, and saw how code can automate teacher
+          workflows behind the scenes.
+        </div>
+        <div class="tag-row">
+          <span class="tag">Google Apps Script</span>
+          <span class="tag">Automation</span>
+          <span class="tag">MTSS</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-date">LOOKING AHEAD</div>
+        <div class="entry-title">Next entries to add…</div>
+        <div class="entry-body">
+          Every time I fix a bug, add a feature, or ship a new tool for teachers, I’ll add an entry here.
+          Over time this becomes my developer resume and the story of my Educator → Developer journey.
+        </div>
+        <div class="tag-row">
+          <span class="tag">Growth</span>
+          <span class="tag">Reflection</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="hint">
+      Tip: any time you catch yourself thinking “I learned something today” while building with Atlas,
+      come back here and add a new entry.
+    </p>
+  </div>
+</body>
+</html>
